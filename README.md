@@ -24,9 +24,9 @@ class Cache:
         self.data = {}
         self.state = {}
         self.msg_count = 0
-        self.read_time = 0
-        self.write_time = 0
-        self.log = []
+        self.read_time = 0  # Total time spent reading
+        self.write_time = 0  # Total time spent writing
+        self.log = []  # FIX: Logging untuk setiap cache
 
     def read(self, address, use_coherence, all_caches):
         start_time = time.time()
@@ -163,4 +163,6 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
 ```
