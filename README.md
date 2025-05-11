@@ -1,6 +1,14 @@
 # Multithread-Simulator
 ### Output 
-![image](https://github.com/user-attachments/assets/7322f795-90b4-45cd-a402-d3b12da02088)
+![912deae9-8040-4e1f-ac5e-3c595aef1838](https://github.com/user-attachments/assets/d109a5ac-b134-4db1-8cab-2aa4ad9921d1)
+
+## Simulasi Tanpa Protokol Koherensi Cache
+
+Dalam mode tanpa koherensi, setiap core melakukan akses memori secara independen tanpa sinkronisasi antar cache. Hasil simulasi menunjukkan waktu eksekusi total sebesar 0,002367 detik dengan rata-rata waktu per core sebesar 0,000592 detik. Tidak terdapat pesan koherensi yang dikirim antar core, sehingga tidak ada traffic komunikasi yang diamati. Waktu baca rata-rata per core sebesar 0,000007 detik dan waktu tulis sebesar 0,000019 detik. Meskipun tidak ada overhead komunikasi, sistem ini rentan terhadap inkonsistensi data karena tidak adanya mekanisme sinkronisasi antar cache. Oleh karena itu, walaupun terlihat sederhana, performanya justru lebih lambat dibanding mode dengan koherensi.
+## Simulasi Dengan Protokol Koherensi Cache
+
+Pada mode ini, protokol koherensi diaktifkan sehingga setiap core saling menjaga konsistensi data melalui pengiriman pesan koherensi. Waktu eksekusi total tercatat lebih cepat, yaitu 0,002012 detik, dengan rata-rata waktu per core sebesar 0,000503 detik. Tercatat 6 pesan koherensi yang dikirim, yang berarti rata-rata 1,5 pesan per core. Ini menunjukkan adanya traffic komunikasi antar core untuk menjaga sinkronisasi cache. Waktu baca per core meningkat menjadi 0,000015 detik, dan waktu tulis menjadi 0,000060 detik, mencerminkan tambahan waktu akibat mekanisme sinkronisasi (seperti invalidasi atau update antar cache). Meskipun menimbulkan traffic dan overhead komunikasi, koherensi ini justru membuat eksekusi lebih efisien secara keseluruhan karena menghindari konflik data dan duplikasi proses.
+## Kode program dari Output diatas
 ```
 import threading
 import time
